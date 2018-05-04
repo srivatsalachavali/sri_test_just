@@ -1,1 +1,1 @@
-time >> sri_log
+echo %date% %time%
