@@ -1,1 +1,1 @@
-echo %date% %time%
+echo %date% %time% >> test_log
