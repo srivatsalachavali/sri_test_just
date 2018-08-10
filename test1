@@ -1,4 +1,4 @@
-#####
+##
 #echo %date% %time% >> test_log
 #test
 #test2
