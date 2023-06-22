@@ -1,4 +1,4 @@
-name: Docker
+name: PrCheck
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -29,7 +29,7 @@ jobs:
           Dev_NAME="${GITHUB_ACTOR}"
           echo $Dev_NAME
 
-          ref-name="update-backstage_1.11.0"
+          ref-name=update-backstage_1.11.0
           echo "ref-name=$ref-name"
           ref-name=ref-name.replaceAll("[^a-zA-Z0-9-]", "")
           echo "ref-name=$ref-name"
