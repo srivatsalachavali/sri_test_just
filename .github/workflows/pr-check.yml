@@ -1,0 +1,47 @@
+name: Docker
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+on:
+    pull_request:
+    branches: [ "master" ]
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
+
+jobs:
+  check-githubactor:
+    #if: ${{ !contains(github.actor, 'chavali') }}
+    if: ${{ (!contains(github.actor, 'chavali')) || (contains(github.actor, 'chavali') && contains(github.ref, 'master')) }}
+    runs-on: ubuntu-latest
+    outputs:
+      branch_name: ${{ steps.set-vars.outputs.branch-name }}
+      proceed-with-build: ${{ steps.set-vars.output.build-flag }}
+    
+    steps:
+      - name: set env vars
+        id: set-vars
+        run: |
+          Dev_NAME="${GITHUB_ACTOR}"
+          echo $Dev_NAME
+          
+          BRANCH_NAME="${GITHUB_REF_NAME}"
+          echo $BRANCH_NAME
+          echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+          flag=true
+          echo "$flag"
+          echo "build-flag=$flag" >> $GITHUB_OUTPUT
+
+          sri_flag=false
+          echo $sri_flag
+          echo "sri-flag=$sri_flag" >> $GITHUB_ENV
+
+          env | sort | uniq
+
