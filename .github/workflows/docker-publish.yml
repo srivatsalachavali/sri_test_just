@@ -1,10 +1,12 @@
-name: Docker
+name: PrCheck
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
-on: [workflow_dispatch]
+on:
+    pull_request:
+      branches: [ "master" ]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -16,7 +18,7 @@ env:
 jobs:
   check-githubactor:
     #if: ${{ !contains(github.actor, 'chavali') }}
-    if: ${{ (!contains(github.actor, 'chavali')) || (contains(github.actor, 'chavali') && contains(github.head_ref, 'master')) }}
+    if: ${{ (!contains(github.actor, 'chavali')) || (contains(github.actor, 'chavali') && contains(github.head_ref, 'test')) }}
     runs-on: ubuntu-latest
     outputs:
       branch_name: ${{ steps.set-vars.outputs.branch-name }}
@@ -29,6 +31,9 @@ jobs:
           Dev_NAME="${GITHUB_ACTOR}"
           echo $Dev_NAME
           
+          Source="${GITHUB_HEAD_REF}"
+          echo $Source
+
           BRANCH_NAME="${GITHUB_REF_NAME}"
           echo $BRANCH_NAME
           echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
