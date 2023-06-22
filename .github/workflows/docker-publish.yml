@@ -42,11 +42,6 @@ jobs:
         uses: ASzc/change-string-case-action@v2
         with:
           string: ${{ env.BRANCH_NAME }}
-        run: |
-            echo "#46"
-            echo "UPDATED_BRANCH_NAME=${{ steps.string.outputs.lowercase }}" >> ${GITHUB_ENV}
-            echo "${{ steps.string.outputs.lowercase }}"
-            echo "#49: $UPDATED_BRANCH_NAME"
       - name: Validate branch name is a valid helm release name
         id: valid-branch
         run: |
