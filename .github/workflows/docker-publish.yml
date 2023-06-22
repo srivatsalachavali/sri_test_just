@@ -33,9 +33,9 @@ jobs:
           echo "$flag"
           echo "build-flag=$flag" >> $GITHUB_OUTPUT
 
-          sri-flag=false
-          echo $sri-flag
-          echo "sri-flag=$sri-flag" >> $GITHUB_ENV
+          sri_flag=false
+          echo $sri_flag
+          echo "sri_flag=$sri-flag" >> $GITHUB_ENV
 
           env | sort | uniq
 
