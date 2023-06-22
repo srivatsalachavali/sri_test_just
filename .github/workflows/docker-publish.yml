@@ -30,6 +30,11 @@ jobs:
         run: |
           Dev_NAME="${GITHUB_ACTOR}"
           echo $Dev_NAME
+
+          ref-name="update-backstage_1.11.0"
+          echo "ref-name=$ref-name"
+          ref-name=ref-name.replaceAll("[^a-zA-Z0-9-]", "")
+          echo "ref-name=$ref-name"
           
           Source="${GITHUB_HEAD_REF}"
           echo $Source
@@ -47,4 +52,3 @@ jobs:
           echo "sri-flag=$sri_flag" >> $GITHUB_ENV
 
           env | sort | uniq
-
