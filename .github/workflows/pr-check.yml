@@ -39,7 +39,7 @@ jobs:
           echo "$flag"
           echo "build-flag=$flag" >> $GITHUB_OUTPUT
 
-          sri_flag=false
+          sri_flag=falseSri
           echo $sri_flag
           echo "sri-flag=$sri_flag" >> $GITHUB_ENV
 
