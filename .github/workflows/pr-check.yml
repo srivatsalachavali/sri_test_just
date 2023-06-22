@@ -17,7 +17,6 @@ env:
 
 jobs:
   check-githubactor:
-    #if: ${{ !contains(github.actor, 'chavali') }}
     #if: ${{ (!contains(github.actor, 'chavali')) || (contains(github.actor, 'chavali') && contains(github.head_ref, 'master')) }}
     runs-on: ubuntu-latest
     steps:

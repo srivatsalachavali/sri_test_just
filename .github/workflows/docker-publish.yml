@@ -1,12 +1,10 @@
-name: PrCheck
+name: Docker
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
-on:
-    pull_request:
-      branches: [ "master" ]
+on: [workflow_dispatch]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -18,7 +16,7 @@ env:
 jobs:
   check-githubactor:
     #if: ${{ !contains(github.actor, 'chavali') }}
-    if: ${{ (!contains(github.actor, 'chavali')) || (contains(github.actor, 'chavali') && contains(github.head_ref, 'test-update')) }}
+    #if: ${{ (!contains(github.actor, 'chavali')) || (contains(github.actor, 'chavali') && contains(github.head_ref, 'test-update')) }}
     runs-on: ubuntu-latest
     outputs:
       branch_name: ${{ steps.set-vars.outputs.branch-name }}
@@ -30,6 +28,21 @@ jobs:
         run: |
           Dev_NAME="${GITHUB_ACTOR}"
           echo $Dev_NAME
+
+          ref_name="upDAte-Backstage/1.11&0"
+          echo "ref_name=$ref_name"
+          #ref_name=ref_name.replaceAll("[^a-zA-Z0-9-]", "")
+           
+          ref_name=$(echo "$ref_name" | sed -e 's/[][\~\%\+\#\@\!\&\/\\^*+.$_]/\-/g' | sed -e 's/\(.*\)/\L\1/')
+          echo "ref_name=$ref_name"
+
+          if [[ $ref_name =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ ]]; then
+            echo "#40"
+            exit 0
+          else
+            echo "#43"
+            exit 1
+          fi
           
           Source="${GITHUB_HEAD_REF}"
           echo $Source
@@ -47,4 +60,3 @@ jobs:
           echo "sri-flag=$sri_flag" >> $GITHUB_ENV
 
           env | sort | uniq
-
