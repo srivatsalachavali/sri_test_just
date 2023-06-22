@@ -45,10 +45,10 @@ jobs:
       - name: Validate branch name is a valid helm release name
         id: valid-branch
         run: |
-          echo "${{ steps.string.outputs.lowercase }}"
+          echo "$steps.string.outputs.lowercase"
           echo "#49"
           UPDATED_BRANCH_NAME=$(echo "$env.BRANCH_NAME" | sed -e 's/[][\~\%\+\#\@\!\&\/\\^*+.$_]/\-/g' | sed -e 's/\(.*\)/\L\1/')
-          echo "UPDATED_BRANCH_NAME"
+          echo "$UPDATED_BRANCH_NAME"
           if [[ $UPDATED_BRANCH_NAME =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ ]]; then
             echo "UPDATED_BRANCH_NAME=$UPDATED_BRANCH_NAME"
           else
