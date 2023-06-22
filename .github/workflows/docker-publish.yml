@@ -16,7 +16,7 @@ env:
 jobs:
   check-githubactor:
     #if: ${{ !contains(github.actor, 'chavali') }}
-    if: ${{ !contains(github.actor, 'chavali') && !contains(github.ref.name, 'master') }}
+    if: ${{ contains(github.actor, 'chavali') }}
     runs-on: ubuntu-latest
     outputs:
       branch_name: ${{ steps.set-vars.outputs.branch-name }}
