@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       branch_name: ${{ steps.set-vars.outputs.branch-name }}
-      proceed-with-build: ${{ steps\.set-vars.output.build-flag }}
+      proceed-with-build: ${{ steps.set-vars.output.build-flag }}
     
     steps:
       - name: set env vars
@@ -28,14 +28,14 @@ jobs:
           BRANCH_NAME="${GITHUB_HEAD_REF}"
           echo $BRANCH_NAME
           echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-  
+
           flag=true
           echo $flag"
           echo "build-flag=$flag" >> $GITHUB_OUTPUT
-  
+
           sri-flag=false
           echo $sri-flag
           echo "sri-flag=$sri-flag" >> $GITHUB_ENV
-  
+
           env | sort | uniq
 
