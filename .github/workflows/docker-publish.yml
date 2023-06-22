@@ -25,17 +25,17 @@ jobs:
       - name: set env vars
         id: set-vars
         run: |
-        BRANCH_NAME="${GITHUB_HEAD_REF}"
-        echo $BRANCH_NAME
-        echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-
-        flag=true
-        echo $flag"
-        echo "build-flag=$flag" >> $GITHUB_OUTPUT
-
-        sri-flag=false
-        echo $sri-flag
-        echo "sri-flag=$sri-flag" >> $GITHUB_ENV
-
-        env | sort | uniq
+          BRANCH_NAME="${GITHUB_HEAD_REF}"
+          echo $BRANCH_NAME
+          echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+  
+          flag=true
+          echo $flag"
+          echo "build-flag=$flag" >> $GITHUB_OUTPUT
+  
+          sri-flag=false
+          echo $sri-flag
+          echo "sri-flag=$sri-flag" >> $GITHUB_ENV
+  
+          env | sort | uniq
 
