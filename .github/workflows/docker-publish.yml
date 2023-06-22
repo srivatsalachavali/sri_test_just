@@ -29,10 +29,10 @@ jobs:
           Dev_NAME="${GITHUB_ACTOR}"
           echo $Dev_NAME
 
-          ref-name=update-backstage_1.11.0
-          echo "ref-name=$ref-name"
-          ref-name=ref-name.replaceAll("[^a-zA-Z0-9-]", "")
-          echo "ref-name=$ref-name"
+          ref_name=update-backstage_1.11.0
+          echo "ref_name=$ref_name"
+          ref_name=ref_name.replaceAll("[^a-zA-Z0-9-]", "")
+          echo "ref_name=$ref_name"
           
           Source="${GITHUB_HEAD_REF}"
           echo $Source
