@@ -33,7 +33,7 @@ jobs:
           echo "ref_name=$ref_name"
           #ref_name=ref_name.replaceAll("[^a-zA-Z0-9-]", "")
            
-          ref_name=$(echo "$ref_name" | sed -e 's/[][\~\%\+\#\@\!\&\/\\^*+.$_]/\-/g' | sed -e 's/\(.*\)/\L\1/')
+          #ref_name=$(echo "$ref_name" | sed -e 's/[][\~\%\+\#\@\!\&\/\\^*+.$_]/\-/g' | sed -e 's/\(.*\)/\L\1/')
           echo "ref_name=$ref_name"
 
           if [[ $ref_name =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ ]]; then
@@ -60,3 +60,25 @@ jobs:
           echo "sri-flag=$sri_flag" >> $GITHUB_ENV
 
           env | sort | uniq
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+      - name: Downcase branch name
+        id: string
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ env.BRANCH_NAME }}
+      - name: Validate branch name is a valid helm release name
+        id: valid-branch
+        run: |
+          echo "$env.BRANCH_NAME"
+          UPDATED_BRANCH_NAME=$(echo "$env.BRANCH_NAME" | sed -e 's/[][\~\%\+\#\@\!\&\/\\^*+.$_]/\-/g' | sed -e 's/\(.*\)/\L\1/')
+          if [[ $UPDATED_BRANCH_NAME =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ ]]; then
+            echo "UPDATED_BRANCH_NAME=$UPDATED_BRANCH_NAME"
+          else
+            echo "Invalid Branch name. It should contain only alpha, "=" and numeric."
+            exit 1
+          fi
+          echo "UPDATED_BRANCH_NAME=$UPDATED_BRANCH_NAME" >> $GITHUB_ENV
+        shell: bash
