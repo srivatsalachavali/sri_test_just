@@ -29,12 +29,20 @@ jobs:
           Dev_NAME="${GITHUB_ACTOR}"
           echo $Dev_NAME
 
-          ref_name=UPDate-backSTage_1.11.0
+          ref_name=update-backstage_1.11.0
           echo "ref_name=$ref_name"
           #ref_name=ref_name.replaceAll("[^a-zA-Z0-9-]", "")
            
           ref_name=$(echo "$ref_name" | sed -e 's/[][\\^*+.$_]/\-/g' | sed -e 's/\(.*\)/\L\1/')
           echo "ref_name=$ref_name"
+
+          if [[ $ref_name =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ ]]; then
+            echo "#40"
+            exit 0
+          else
+            echo "#43"
+            exit 1
+          fi
           
           Source="${GITHUB_HEAD_REF}"
           echo $Source
