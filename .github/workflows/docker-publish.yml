@@ -42,7 +42,7 @@ jobs:
         uses: ASzc/change-string-case-action@v2
         with:
           string: ${{ env.BRANCH_NAME }}
-        - run: |
+        run: |
             echo "#46"
             echo "UPDATED_BRANCH_NAME=${{ steps.string.outputs.lowercase }}" >> ${GITHUB_ENV}
             echo "${{ steps.string.outputs.lowercase }}"
