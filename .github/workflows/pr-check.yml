@@ -17,9 +17,8 @@ env:
 
 jobs:
   check-githubactor:
-    #if: ${{ !contains(github.actor, 'chavali') }}
-    if: ${{ (!contains(github.actor, 'chavali')) || (contains(github.actor, 'chavali') && contains(github.ref, 'test-update')) }}
-    runs-on: ubuntu-latest  
+    #if: ${{ (!contains(github.actor, 'chavali')) || (contains(github.actor, 'chavali') && contains(github.head_ref, 'master')) }}
+    runs-on: ubuntu-latest
     steps:
       - name: set env vars
         id: set-vars
@@ -35,7 +34,7 @@ jobs:
           echo "$flag"
           echo "build-flag=$flag" >> $GITHUB_OUTPUT
 
-          sri_flag=false
+          sri_flag=falseSri
           echo $sri_flag
           echo "sri-flag=$sri_flag" >> $GITHUB_ENV
 
