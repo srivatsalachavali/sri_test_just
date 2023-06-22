@@ -30,7 +30,7 @@ jobs:
           echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
           flag=true
-          echo $flag"
+          echo "$flag"
           echo "build-flag=$flag" >> $GITHUB_OUTPUT
 
           sri-flag=false
