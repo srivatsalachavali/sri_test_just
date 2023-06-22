@@ -33,7 +33,7 @@ jobs:
           echo "ref_name=$ref_name"
           #ref_name=ref_name.replaceAll("[^a-zA-Z0-9-]", "")
            
-          ref_name=$(echo "$ref_name" | sed -e 's/[][\\^*+.$_]/\-/g')
+          ref_name=$(echo "$ref_name" | sed -e 's/[][\\^*+.$_]/\-/g' | sed -e 's/\(.*\)/\L\1/')
           echo "ref_name=$ref_name"
           
           Source="${GITHUB_HEAD_REF}"
