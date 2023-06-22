@@ -15,7 +15,7 @@ env:
 
 jobs:
   check-githubactor:
-    if: ${{ !contains(github.actor, 'abcd') }}
+    if: ${{ !contains(github.actor, 'chavali') }}
     runs-on: ubuntu-latest
     outputs:
       branch_name: ${{ steps.set-vars.outputs.branch-name }}
@@ -35,7 +35,7 @@ jobs:
 
           sri_flag=false
           echo $sri_flag
-          echo "sri_flag=$sri-flag" >> $GITHUB_ENV
+          echo "sri-flag=$sri_flag" >> $GITHUB_ENV
 
           env | sort | uniq
 
