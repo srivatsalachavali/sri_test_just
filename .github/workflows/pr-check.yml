@@ -19,11 +19,7 @@ jobs:
   check-githubactor:
     #if: ${{ !contains(github.actor, 'chavali') }}
     if: ${{ (!contains(github.actor, 'chavali')) || (contains(github.actor, 'chavali') && contains(github.ref, 'test-update')) }}
-    runs-on: ubuntu-latest
-    outputs:
-      branch_name: ${{ steps.set-vars.outputs.branch-name }}
-      proceed-with-build: ${{ steps.set-vars.output.build-flag }}
-    
+    runs-on: ubuntu-latest  
     steps:
       - name: set env vars
         id: set-vars
