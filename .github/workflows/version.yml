@@ -25,6 +25,8 @@ jobs:
         git --version
         git tag
         echo test
+        git_hash=$(git rev-parse --short "$GITHUB_SHA")
+        echo git_hash=$git_hash
         latest_version=`git tag --sort=taggerdate | tail -1`
         export major=`echo $latest_version | awk -F '.' '{print $1}'`
         export minor=`echo $latest_version | awk -F '.' '{print $2}'`
@@ -36,7 +38,8 @@ jobs:
         echo "show 2"
         git show v1.0.0^{tree}
         echo "show 3"
-        git show -s --format=%s v1.0.0^{commit}
+        export Tag_Commit_Message=`git show -s --format=%s v1.0.0^{commit}`
+        echo Tag_Commit_Message=$Tag_Commit_Message
         echo "show stop"
         patch=$(( $patch + 1 ))
         export Next_Tag=$major.$minor.$patch
