@@ -31,6 +31,6 @@ jobs:
         export patch=`echo $latest_version | awk -F '.' '{print $3}'`
         export Latest_Tag=$major.$minor.$patch
         echo Latest_Tag=$Latest_Tag
-        patch=$(( $patch + 1 )
+        patch=$(( $patch + 1 ))
         export Next_Tag=$major.$minor.$patch
         echo Next_Tag=$Next_Tag
