@@ -19,4 +19,5 @@ jobs:
         MAJOR=${VERSION%%.*}
         echo "VERSION=$VERSION"
         echo "MAJOR=$MAJOR"
+        git --version
         git tag --sort=taggerdate | tail -1 
