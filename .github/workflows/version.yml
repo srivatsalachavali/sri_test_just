@@ -24,3 +24,5 @@ jobs:
         echo "MAJOR=$MAJOR"
         git --version
         git tag
+        echo test
+        git tag --sort=taggerdate | tail -1
