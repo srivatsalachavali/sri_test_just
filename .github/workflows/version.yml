@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
+    - name: Get uses
+      uses: actions/checkout@v3
     - name: Get major version num and update tag
       run: |
         ls -ltr
@@ -20,6 +20,3 @@ jobs:
         echo "VERSION=$VERSION"
         echo "MAJOR=$MAJOR"
         git tag --sort=taggerdate | tail -1 
-        t={git tag --sort=taggerdate | tail -1}
-        ls -ltr
-        echo "t=$t"
