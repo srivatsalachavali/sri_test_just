@@ -20,6 +20,6 @@ jobs:
         echo "VERSION=$VERSION"
         echo "MAJOR=$MAJOR"
         git tag --sort=taggerdate | tail -1 
-        t=${git tag --sort=taggerdate | tail -1}
+        t={git tag --sort=taggerdate | tail -1}
         ls -ltr
         echo "t=$t"
