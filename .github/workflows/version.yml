@@ -12,7 +12,7 @@ jobs:
 
     - name: Get major version num and update tag
       run: |
-        VERSION=${GITHUB_REF#refs/tags/}
+        VERSION=${GITHUB_REF#refs/tags/v}
         MAJOR=${VERSION%%.*}
         echo "VERSION=$VERSION"
         echo "MAJOR=$MAJOR"
