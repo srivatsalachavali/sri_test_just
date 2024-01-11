@@ -12,8 +12,14 @@ jobs:
 
     - name: Get major version num and update tag
       run: |
+        ls -ltr
+        touch test
+        ls -ltr
         VERSION=${GITHUB_REF#refs/tags/v}
         MAJOR=${VERSION%%.*}
         echo "VERSION=$VERSION"
         echo "MAJOR=$MAJOR"
-        git tag --sort=taggerdate | tail -1
+        git tag --sort=taggerdate | tail -1 
+        git tag --sort=taggerdate | tail -1 >> t
+        ls -ltr
+        cat t
