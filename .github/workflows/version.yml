@@ -14,3 +14,5 @@ jobs:
       run: |
         VERSION=${GITHUB_REF#refs/tags/}
         MAJOR=${VERSION%%.*}
+        echo "VERSION=$VERSION"
+        echo "MAJOR=$MAJOR"
