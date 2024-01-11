@@ -1,16 +1,19 @@
-name: Versioning
+name: Version Build
 
 on:
   workflow_dispatch:
 
 jobs:
-  movetag:
+  build-version:
+
     runs-on: ubuntu-latest
 
     steps:
-    - name: Get uses
-      uses: actions/checkout@v3
-    - name: Get major version num and update tag
+    - name: Git checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    - name: Git version
       run: |
         ls -ltr
         touch test
@@ -20,4 +23,5 @@ jobs:
         echo "VERSION=$VERSION"
         echo "MAJOR=$MAJOR"
         git --version
-        git tag
+        git tag --sort=taggerdate | tail -1
+        git describe
