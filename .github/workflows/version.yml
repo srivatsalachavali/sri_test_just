@@ -15,32 +15,17 @@ jobs:
         fetch-depth: '0'
     - name: Git version
       run: |
-        ls -ltr
-        touch test
-        ls -ltr
         VERSION=${GITHUB_REF#refs/tags/v}
         MAJOR=${VERSION%%.*}
-        echo "VERSION=$VERSION"
-        echo "MAJOR=$MAJOR"
-        git --version
-        git tag
-        echo test
         git_hash=$(git rev-parse --short "$GITHUB_SHA")
         echo git_hash=$git_hash
         latest_version=`git tag --sort=taggerdate | tail -1`
         export major=`echo $latest_version | awk -F '.' '{print $1}'`
         export minor=`echo $latest_version | awk -F '.' '{print $2}'`
         export patch=`echo $latest_version | awk -F '.' '{print $3}'`
-        export Latest_Tag=$major.$minor.$patch
-        echo Latest_Tag=$Latest_Tag
-        echo "show 1"
-        git show $Latest_Tag
-        echo "show 2"
-        git show v1.0.0^{tree}
-        echo "show 3"
-        export Tag_Commit_Message=`git show -s --format=%s v1.0.0^{commit}`
-        echo Tag_Commit_Message=$Tag_Commit_Message
-        echo "show stop"
+        export current_latest_tag=$major.$minor.$patch
+        echo current_latest_tag=$current_latest_tag
+        git show $current_latest_tag
         patch=$(( $patch + 1 ))
-        export Next_Tag=$major.$minor.$patch
-        echo Next_Tag=$Next_Tag
+        export new_tag=$major.$minor.$patch
+        echo new_tag=$new_tag
