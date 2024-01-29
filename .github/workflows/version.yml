@@ -29,3 +29,5 @@ jobs:
         patch=$(( $patch + 1 ))
         export new_tag=$major.$minor.$patch
         echo new_tag=$new_tag
+        git tag $new_tag
+        git push origin --tags
