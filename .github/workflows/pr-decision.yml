@@ -1,0 +1,56 @@
+name: PR Approve / Deny
+
+env:
+  owner: srivatsalachavali
+  repo: sri_test_just
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Pull Request number"
+        required: false
+        type: string
+        default: "1"
+      decision:
+        description: "Approve or Deny"
+        required: false
+        type: choice
+        default: "approve"
+        options:
+          - approve
+          - deny
+
+jobs:
+  pr-decision:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Echo Variables
+        run: |
+          echo "=== PR Decision Variables ==="
+          echo "Owner: ${{ env.owner }}"
+          echo "Repository: ${{ env.repo }}"
+          echo "PR Number: ${{ inputs.pr_number }}"
+          echo "Decision: ${{ inputs.decision }}"
+          echo "Context Repo Owner: ${{ github.repository_owner }}"
+          echo "Context Repo Name: ${{ github.event.repository.name }}"
+          echo "=== End Variables ==="
+
+      - name: Approve PR (Echo)
+        if: ${{ inputs.decision == 'approve' }}
+        run: |
+          echo "✅ Would APPROVE PR #${{ inputs.pr_number }}"
+          echo "Repository: ${{ env.owner }}/${{ env.repo }}"
+          echo "Event: APPROVE"
+
+      - name: Deny PR (Echo)
+        if: ${{ inputs.decision == 'deny' }}
+        run: |
+          echo "❌ Would DENY PR #${{ inputs.pr_number }}"
+          echo "Repository: ${{ env.owner }}/${{ env.repo }}"
+          echo "Event: REQUEST_CHANGES"
+          echo "Body: ❌ PR denied by automated workflow"

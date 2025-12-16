@@ -31,32 +31,31 @@ jobs:
 
           ref_name="upDAte-Backstage/1.11&0"
           echo "ref_name=$ref_name"
-          #ref_name=ref_name.replaceAll("[^a-zA-Z0-9-]", "")
-           
-          ref_name=$(echo "$ref_name" | sed -e 's/[][\~\%\+\#\@\!\&\/\\^*+.$_]/\-/g' | sed -e 's/\(.*\)/\L\1/')
-          echo "ref_name=$ref_name"
-
-          if [[ $ref_name =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ ]]; then
-            echo "#40"
-            exit 0
-          else
-            echo "#43"
-            exit 1
-          fi
-          
-          Source="${GITHUB_HEAD_REF}"
-          echo $Source
-
-          BRANCH_NAME="${GITHUB_REF_NAME}"
-          echo $BRANCH_NAME
-          echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-
-          flag=true
-          echo "$flag"
-          echo "build-flag=$flag" >> $GITHUB_OUTPUT
-
-          sri_flag=false
-          echo $sri_flag
-          echo "sri-flag=$sri_flag" >> $GITHUB_ENV
 
           env | sort | uniq
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+      - name: Downcase branch name
+        id: string
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ env.BRANCH_NAME }}
+        - run: |
+          echo "${{ steps.string.outputs.lowercase }}"
+      - name: Validate branch name is a valid helm release name
+        id: valid-branch
+        run: |
+          echo "$steps.string.outputs.lowercase"
+          echo "#49"
+          UPDATED_BRANCH_NAME=$(echo "$env.BRANCH_NAME" | sed -e 's/[][\~\%\+\#\@\!\&\/\\^*+.$_]/\-/g' | sed -e 's/\(.*\)/\L\1/')
+          echo "$UPDATED_BRANCH_NAME"
+          if [[ $UPDATED_BRANCH_NAME =~ ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ ]]; then
+            echo "UPDATED_BRANCH_NAME=$UPDATED_BRANCH_NAME"
+          else
+            echo "Invalid Branch name. It should contain only alpha, "-" and numeric."
+            exit 1
+          fi
+          echo "UPDATED_BRANCH_NAME=$UPDATED_BRANCH_NAME" >> $GITHUB_ENV
+        shell: bash
