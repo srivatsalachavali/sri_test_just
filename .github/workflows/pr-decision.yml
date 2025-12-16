@@ -1,0 +1,52 @@
+name: PR Approve / Deny
+env:
+  owner: srivatsalachavali
+  repo: sri_test_just
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Pull Request number"
+        required: true
+        type: number
+      decision:
+        description: "Approve or Deny"
+        required: true
+        type: choice
+        options:
+          - approve
+          - deny
+
+jobs:
+  pr-decision:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Approve PR
+        if: ${{ inputs.decision == 'approve' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: ${{ inputs.pr_number }},
+              event: "APPROVE"
+            });
+
+      - name: Deny PR
+        if: ${{ inputs.decision == 'deny' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: ${{ inputs.pr_number }},
+              event: "REQUEST_CHANGES",
+              body: "❌ PR denied by automated workflow"
+            });
